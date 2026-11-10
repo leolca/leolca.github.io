@@ -488,6 +488,23 @@ def generate_publications():
         if current_year != 'Unknown' and txt != 'Publications':
             year_groups[current_year].append(it)
             
+    # Include certified items from Lattes CV
+    year_groups.setdefault('2013', []).append({
+        'type': 'li',
+        'text': 'Teoria da Informação Aplicada à Comunicação Falada (Tese de Doutorado)',
+        'links': [{'text': 'Tese (UFMG)', 'href': 'http://www.cefala.org/~leoca/'}]
+    })
+    year_groups.setdefault('2010', []).append({
+        'type': 'li',
+        'text': 'Multidimensional Scaling Representation of Speech Sound Dissimilarities (presentation)',
+        'links': [{'text': 'Poster / Slides', 'href': 'http://www.cefala.org/~leoca/research/posterspsassd.pdf'}]
+    })
+    year_groups.setdefault('2001', []).append({
+        'type': 'li',
+        'text': 'Construção de Wavelets e Aplicações em Processamento de Imagens',
+        'links': [{'text': 'XXIV CNMAC', 'href': 'http://lattes.cnpq.br/6946118605547297'}]
+    })
+            
     # Build HTML items
     items_html = []
     total_count = 0
@@ -506,23 +523,70 @@ def generate_publications():
             badge_class = 'badge-paper'
             badge_label = 'Article'
             
-            if any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn', 'origem das letras', 'flipbook', 'booklet', 'eicefala']):
+            # 1. Teaching Material, Problem Sets & Lecture Notes
+            if any(k in low for k in ['slides de aula', 'lista de exercícios', 'notas de aula', 'projeções ortográficas', 'resumo de textos', 'teoria das cores', 'pintura de gênero', 'fundamentos de neurociência']):
+                category = 'teaching'
+                badge_class = 'badge-teaching'
+                if 'slides' in low:
+                    badge_label = 'Lecture Slides'
+                elif 'exercícios' in low:
+                    badge_label = 'Exercises & Problem Set'
+                elif 'notas' in low:
+                    badge_label = 'Lecture Notes'
+                elif 'apresentação' in low or 'presentation' in low:
+                    badge_label = 'Lecture Presentation'
+                else:
+                    badge_label = 'Teaching Material'
+            elif 'apresentação' in low or 'presentation' in low:
+                category = 'teaching'
+                badge_class = 'badge-teaching'
+                if 'wavelets com fator de escala' in low or 'dissertação' in low:
+                    badge_label = 'Defense Presentation'
+                elif any(k in low for k in ['seminário', 'dynamic time warping', 'watermarking', 'speech sound dissimilarities']):
+                    badge_label = 'Conference Presentation'
+                else:
+                    badge_label = 'Presentation'
+            # 2. Books & Booklets
+            elif any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn', 'origem das letras', 'flipbook', 'booklet', 'eicefala', 'livro -', 'livro ']):
                 category = 'book'
                 badge_class = 'badge-book'
                 if 'origem das letras' in low:
                     badge_label = 'Flipbook / Booklet'
                 elif 'eicefala' in low:
                     badge_label = 'Proceedings Book / Editor'
+                elif 'series' in low or 'série' in low:
+                    badge_label = 'Book Series'
                 else:
-                    badge_label = 'Book / Series'
-            elif any(k in low for k in ['octave', 'github', 'tex', 'hyphen', 'biblatex', 'cjpeg', 'package']):
+                    badge_label = 'Book'
+            # 3. Open Source Software & Packages
+            elif any(k in low for k in ['octave', 'github', 'tex', 'hyphen', 'biblatex', 'cjpeg', 'package', 'code for octave', 'dpcm for octave', 'fftmp', 'cconv.m', 'scripts:']):
                 category = 'software'
                 badge_class = 'badge-code'
-                badge_label = 'Open Source'
+                if 'package' in low:
+                    badge_label = 'Package / Library'
+                elif any(k in low for k in ['rules for portuguese in tex', 'pull', 'update']):
+                    badge_label = 'Contribution / Patch'
+                else:
+                    badge_label = 'Open Source Tool'
+            # 4. Media & Podcasts
             elif any(k in low for k in ['podcast', 'spotify', 'ciência em modulação', 'contos em bits', 'substack', 'instagram']):
                 category = 'media'
                 badge_class = 'badge-media'
-                badge_label = 'Media / Podcast'
+                badge_label = 'Podcast' if 'podcast' in low else 'Science Outreach'
+            # 5. Dissertations and Theses
+            elif 'tese de doutorado' in low or 'doutorado' in low:
+                category = 'article'
+                badge_class = 'badge-paper'
+                badge_label = 'Ph.D. Thesis'
+            elif 'banco de filtros wavelets com fator de escala' in low:
+                category = 'article'
+                badge_class = 'badge-paper'
+                badge_label = "Master's Dissertation"
+            # 6. Articles & Papers
+            else:
+                category = 'article'
+                badge_class = 'badge-paper'
+                badge_label = 'Article / Paper'
 
             # Clean text for display: remove trailing "( link )" or "( download )"
             display_title = re.sub(r'\s*\(\s*(link|download|preprint|glottometrics|versão em português)\s*\)\s*', '', raw_text, flags=re.IGNORECASE)
@@ -542,6 +606,10 @@ def generate_publications():
                 label = t
                 if label.lower() in ['link', 'download']:
                     if 'eicefala' in h: label = 'Proceedings Book (GitHub) 📖'
+                    elif 'slides' in low: label = 'Lecture Slides (PDF) 📄'
+                    elif 'exercícios' in low: label = 'Exercises (PDF) 📝'
+                    elif 'notas' in low: label = 'Lecture Notes (PDF) 📄'
+                    elif 'apresentação' in low or 'presentation' in low: label = 'Presentation (PDF) 📊'
                     elif 'amazon' in h: label = 'Amazon'
                     elif 'github' in h: label = 'GitHub'
                     elif 'arxiv' in h: label = 'arXiv'
@@ -590,9 +658,10 @@ def generate_publications():
           <div class="filter-chips">
             <button class="filter-chip active" data-filter="all">All ({total_count})</button>
             <button class="filter-chip" data-filter="book">Books & Booklets</button>
+            <button class="filter-chip" data-filter="article">Articles & Theses</button>
+            <button class="filter-chip" data-filter="teaching">Teaching Material & Notes</button>
             <button class="filter-chip" data-filter="software">Open Source & Tools</button>
-            <button class="filter-chip" data-filter="article">Articles & Preprints</button>
-            <button class="filter-chip" data-filter="media">Podcasts & Media</button>
+            <button class="filter-chip" data-filter="media">Media & Podcasts</button>
           </div>
           <div class="search-box">
             <span class="search-icon">🔍</span>
