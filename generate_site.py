@@ -26,8 +26,8 @@ def get_nav(active_page, relative_prefix=''):
     <header class="site-header">
       <div class="container">
         <nav class="navbar">
-          <a href="{p}index.html" class="brand">
-            <span class="brand-title">Leonardo Araujo</span>
+          <a href="{p}index.html" class="brand" title="Leonardo Araujo - UFSJ">
+            <img src="{p}images/logo.png" alt="Leonardo Araujo" class="brand-logo">
             <span class="brand-role">UFSJ</span>
           </a>
           
