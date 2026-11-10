@@ -9,7 +9,6 @@ with open('/tmp/parsed_pages.json', 'r', encoding='utf-8') as f:
 def get_nav(active_page, relative_prefix=''):
     p = relative_prefix
     
-    is_home = ' active' if active_page == 'home' else ''
     is_cv = ' active' if active_page == 'cv' else ''
     is_pubs = ' active' if active_page == 'publications' else ''
     is_teaching = ' active' if active_page in ['teaching', 'info_theory', 'multimedia'] else ''
@@ -18,13 +17,11 @@ def get_nav(active_page, relative_prefix=''):
     <header class="site-header">
       <div class="container">
         <nav class="navbar">
-          <a href="{p}index.html" class="brand" title="Leonardo Araujo - UFSJ">
+          <a href="{p}index.html" class="brand" title="Leonardo Araujo - Home" aria-label="Home">
             <img src="{p}images/logo.png" alt="Leonardo Araujo" class="brand-logo">
-            <span class="brand-role">UFSJ</span>
           </a>
           
           <ul class="nav-links" id="nav-links">
-            <li><a href="{p}index.html" class="nav-link{is_home}">Home</a></li>
             <li><a href="{p}cv.html" class="nav-link{is_cv}">CV</a></li>
             <li><a href="{p}publications.html" class="nav-link{is_pubs}">Publications</a></li>
             
