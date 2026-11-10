@@ -558,6 +558,14 @@ def generate_publications():
                     badge_label = 'Book Series'
                 else:
                     badge_label = 'Book'
+            # Explicit Journal Papers that mention TeX / hyphenation (TUGboat and Linguamática)
+            elif 'enhancing tex hyphenation rules' in low or 'aperfeiçoando a hifenização' in low or 'aperfeiçoando a hifenização' in low:
+                category = 'article'
+                badge_class = 'badge-paper'
+                if 'enhancing' in low:
+                    badge_label = 'Journal Paper (TUGboat)'
+                else:
+                    badge_label = 'Journal Paper (Linguamática)'
             # 3. Open Source Software & Packages
             elif any(k in low for k in ['octave', 'github', 'tex', 'hyphen', 'biblatex', 'cjpeg', 'package', 'code for octave', 'dpcm for octave', 'fftmp', 'cconv.m', 'scripts:']):
                 category = 'software'
@@ -617,7 +625,8 @@ def generate_publications():
                     elif 'drive.google.com' in h: label = 'PDF / Drive'
                     elif 'poisson' in h: label = 'Poisson Book'
                     elif 'springer' in h: label = 'Springer'
-                    elif 'tug.org' in h: label = 'TUGboat'
+                    elif 'tug.org' in h: label = 'TUGboat (Paper) 📄'
+                    elif 'linguamatica' in h: label = 'Linguamática (Paper) 📄'
                     elif 'fliphtml5' in h: label = 'Read Flipbook 📖'
                     elif 'substack' in h: label = 'Substack'
                     elif 'instagram' in h: label = 'Instagram'
