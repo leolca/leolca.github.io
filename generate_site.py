@@ -158,6 +158,9 @@ def generate_index():
           <p style="font-size:1rem;line-height:1.7;margin-bottom:1rem;color:var(--text-secondary);">
             I hold a Ph.D. in Electrical Engineering from the <em>Universidade Federal de Minas Gerais (UFMG)</em> with research conducted in collaboration with <em>Technische Universität Dresden (TU Dresden)</em>, focusing on Information Theory applied to spoken communication. My research and teaching span <strong>Information Theory</strong>, <strong>Digital Signal and Speech Processing</strong>, <strong>Multiresolution Wavelet Filter Banks</strong>, <strong>Data & Multimedia Compression</strong>, and the development of <strong>Open Source Tools and Scientific Educational Resources</strong>.
           </p>
+          <p style="font-size:1rem;line-height:1.7;margin-bottom:1rem;color:var(--text-secondary);">
+            I also serve as Section Editor and Layout Editor for <a href="https://periodicos.ufmg.br/index.php/textolivre/about/editorialTeam" target="_blank" rel="noopener" style="color:var(--primary);font-weight:600;">Texto Livre</a> (UFMG, Qualis CAPES A1), an open-access journal focused on language, technology, and free culture.
+          </p>
         </section>
 
         <!-- Highlights Grid -->
@@ -326,6 +329,15 @@ def generate_cv():
             </div>
 
             <div class="cv-timeline-item">
+              <div class="cv-timeline-date">Editorial Position</div>
+              <div class="cv-timeline-title">Section Editor &amp; Layout Editor (Diagramador)</div>
+              <div class="cv-timeline-place"><a href="https://periodicos.ufmg.br/index.php/textolivre/about/editorialTeam" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Revista Texto Livre</a> &bull; Faculdade de Letras, UFMG</div>
+              <div class="cv-timeline-desc">
+                Section Editor (Editor de Seção) and Technical Team Layout Editor (Diagramador) for <em>Texto Livre</em> (ISSN 1983-3652, Qualis CAPES A1), dedicated to language, literature, technology, and open science.
+              </div>
+            </div>
+
+            <div class="cv-timeline-item">
               <div class="cv-timeline-date">2010 &ndash; 2011</div>
               <div class="cv-timeline-title">Adjunct Professor</div>
               <div class="cv-timeline-place">Centro Universitário de Belo Horizonte (UNI-BH)</div>
@@ -424,6 +436,14 @@ def generate_cv():
         <section class="section">
           <h2 class="section-title">Scientific Events Organization & Editorial Work</h2>
           <ul class="syllabus-list">
+            <li class="syllabus-item">
+              <div>
+                <strong>Revista Texto Livre (UFMG &bull; Qualis CAPES A1):</strong> Section Editor and Technical Team Layout Editor (Diagramador).
+              </div>
+              <div class="pub-links" style="margin-top:0.35rem;">
+                <a href="https://periodicos.ufmg.br/index.php/textolivre/about/editorialTeam" target="_blank" rel="noopener" class="pub-link">Editorial Team Page ↗</a>
+              </div>
+            </li>
             <li class="syllabus-item"><strong>ISSP (International Seminar on Speech Production):</strong> Organization, editing, and proceedings publication.</li>
             <li class="syllabus-item"><strong>SemEA (Simpósio Brasileiro de Engenharia de Áudio):</strong> Organization, editorial board, and proceedings publication.</li>
             <li class="syllabus-item"><strong>SBRN (Brazilian Neural Networks Symposium):</strong> Editorial coordination and proceedings publication.</li>
