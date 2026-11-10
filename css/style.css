@@ -201,15 +201,19 @@ body {
 .nav-item-dropdown {
   position: relative;
   list-style: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .dropdown-chevron {
   transition: transform 0.2s ease;
   vertical-align: middle;
+  pointer-events: none;
 }
 
 .nav-item-dropdown:hover .dropdown-chevron,
-.nav-item-dropdown:focus-within .dropdown-chevron {
+.nav-item-dropdown:focus-within .dropdown-chevron,
+.nav-item-dropdown.open .dropdown-chevron {
   transform: rotate(180deg);
 }
 
@@ -218,7 +222,7 @@ body {
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 240px;
+  min-width: 250px;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -226,11 +230,23 @@ body {
   padding: 0.5rem;
   list-style: none;
   z-index: 150;
-  margin-top: 0.25rem;
+  margin-top: 0;
+}
+
+/* Invisible bridge so mouse never loses hover connection */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: transparent;
 }
 
 .nav-item-dropdown:hover .dropdown-menu,
-.nav-item-dropdown:focus-within .dropdown-menu {
+.nav-item-dropdown:focus-within .dropdown-menu,
+.nav-item-dropdown.open .dropdown-menu {
   display: block;
 }
 

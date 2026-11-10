@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileMenu();
+  initDropdown();
   initPubFilters();
   initCopyButtons();
 });
@@ -102,6 +103,42 @@ function initPubFilters() {
   }
 }
 
+// Dropdown Interaction (supports touch, click and hover)
+function initDropdown() {
+  const dropdownItems = document.querySelectorAll('.nav-item-dropdown');
+  
+  dropdownItems.forEach(item => {
+    const trigger = item.querySelector('.nav-link');
+    
+    // Toggle on click for touch screens or mobile
+    if (trigger) {
+      trigger.addEventListener('click', (e) => {
+        // If window is mobile or user clicks chevron
+        if (window.innerWidth <= 920 || e.target.closest('.dropdown-chevron')) {
+          e.preventDefault();
+          item.classList.toggle('open');
+        }
+      });
+    }
+
+    // Keep open while mouse is hovering item or menu
+    item.addEventListener('mouseenter', () => {
+      item.classList.add('open');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      item.classList.remove('open');
+    });
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-item-dropdown')) {
+      dropdownItems.forEach(item => item.classList.remove('open'));
+    }
+  });
+}
+
 // Copy to Clipboard
 function initCopyButtons() {
   document.querySelectorAll('[data-copy]').forEach(btn => {
@@ -121,3 +158,5 @@ function initCopyButtons() {
     });
   });
 }
+
+
