@@ -448,6 +448,14 @@ def generate_cv():
                 <a href="https://periodicos.ufmg.br/index.php/textolivre/about/editorialTeam" target="_blank" rel="noopener" class="pub-link">Editorial Team Page ↗</a>
               </div>
             </li>
+            <li class="syllabus-item">
+              <div>
+                <strong>EICEFALA 2021 (International Meeting on Speech Sciences):</strong> Co-organizer and Editor of the Proceedings Book (<em>Advances in Speech and L2 Processing</em>).
+              </div>
+              <div class="pub-links" style="margin-top:0.35rem;">
+                <a href="https://github.com/eicefala/eicefala2021" target="_blank" rel="noopener" class="pub-link">Proceedings Book (GitHub) ↗</a>
+              </div>
+            </li>
             <li class="syllabus-item"><strong>ISSP (International Seminar on Speech Production):</strong> Organization, editing, and proceedings publication.</li>
             <li class="syllabus-item"><strong>SemEA (Simpósio Brasileiro de Engenharia de Áudio):</strong> Organization, editorial board, and proceedings publication.</li>
             <li class="syllabus-item"><strong>SBRN (Brazilian Neural Networks Symposium):</strong> Editorial coordination and proceedings publication.</li>
@@ -498,11 +506,13 @@ def generate_publications():
             badge_class = 'badge-paper'
             badge_label = 'Article'
             
-            if any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn', 'origem das letras', 'flipbook', 'booklet']):
+            if any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn', 'origem das letras', 'flipbook', 'booklet', 'eicefala']):
                 category = 'book'
                 badge_class = 'badge-book'
                 if 'origem das letras' in low:
                     badge_label = 'Flipbook / Booklet'
+                elif 'eicefala' in low:
+                    badge_label = 'Proceedings Book / Editor'
                 else:
                     badge_label = 'Book / Series'
             elif any(k in low for k in ['octave', 'github', 'tex', 'hyphen', 'biblatex', 'cjpeg', 'package']):
@@ -518,6 +528,8 @@ def generate_publications():
             display_title = re.sub(r'\s*\(\s*(link|download|preprint|glottometrics|versão em português)\s*\)\s*', '', raw_text, flags=re.IGNORECASE)
             if 'origem das letras' in low:
                 display_title = "A Origem das Letras (Self-published Flipbook Booklet)"
+            elif 'eicefala' in low:
+                display_title = "EICEFALA 2021: International Meeting on Speech Sciences – Advances in Speech and L2 Processing (Proceedings Book, Organizer & Editor)"
             
             # Format link buttons
             links_markup = []
@@ -529,7 +541,8 @@ def generate_publications():
                 # Friendly link labels
                 label = t
                 if label.lower() in ['link', 'download']:
-                    if 'amazon' in h: label = 'Amazon'
+                    if 'eicefala' in h: label = 'Proceedings Book (GitHub) 📖'
+                    elif 'amazon' in h: label = 'Amazon'
                     elif 'github' in h: label = 'GitHub'
                     elif 'arxiv' in h: label = 'arXiv'
                     elif 'spotify' in h: label = 'Spotify'
