@@ -173,10 +173,10 @@ def generate_index():
           <div class="cards-grid">
             
             <div class="card">
-              <span class="badge badge-book" style="margin-bottom:0.75rem;">Books & Literature</span>
-              <h3 class="card-title">Published Books</h3>
+              <span class="badge badge-book" style="margin-bottom:0.75rem;">Books & Booklets</span>
+              <h3 class="card-title">Published Books & Booklets</h3>
               <p class="card-text">
-                Author of <em>Teoria da Informação e da Codificação</em>, <em>The Grand Hotel Infinita</em>, the bilingual illustrated mathematics series <em>Heróis Primos / Prime Heroes</em>, and the children's educational series <em>Pipoca / Popcorn</em>.
+                Author of <em>Teoria da Informação e da Codificação</em>, <em>The Grand Hotel Infinita</em>, the booklet <em>A Origem das Letras</em>, the bilingual illustrated mathematics series <em>Heróis Primos / Prime Heroes</em>, and the children's educational series <em>Pipoca / Popcorn</em>.
               </p>
               <a href="publications.html" class="btn btn-secondary btn-sm">Explore Books &rarr;</a>
             </div>
@@ -498,10 +498,13 @@ def generate_publications():
             badge_class = 'badge-paper'
             badge_label = 'Article'
             
-            if any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn']):
+            if any(k in low for k in ['livro:', 'book:', 'série', 'series', 'isbn', 'origem das letras', 'flipbook', 'booklet']):
                 category = 'book'
                 badge_class = 'badge-book'
-                badge_label = 'Book / Series'
+                if 'origem das letras' in low:
+                    badge_label = 'Flipbook / Booklet'
+                else:
+                    badge_label = 'Book / Series'
             elif any(k in low for k in ['octave', 'github', 'tex', 'hyphen', 'biblatex', 'cjpeg', 'package']):
                 category = 'software'
                 badge_class = 'badge-code'
@@ -513,6 +516,8 @@ def generate_publications():
 
             # Clean text for display: remove trailing "( link )" or "( download )"
             display_title = re.sub(r'\s*\(\s*(link|download|preprint|glottometrics|versão em português)\s*\)\s*', '', raw_text, flags=re.IGNORECASE)
+            if 'origem das letras' in low:
+                display_title = "A Origem das Letras (Self-published Flipbook Booklet)"
             
             # Format link buttons
             links_markup = []
@@ -532,7 +537,7 @@ def generate_publications():
                     elif 'poisson' in h: label = 'Poisson Book'
                     elif 'springer' in h: label = 'Springer'
                     elif 'tug.org' in h: label = 'TUGboat'
-                    elif 'fliphtml5' in h: label = 'FlipBook'
+                    elif 'fliphtml5' in h: label = 'Read Flipbook 📖'
                     elif 'substack' in h: label = 'Substack'
                     elif 'instagram' in h: label = 'Instagram'
                     else: label = 'View Document'
@@ -571,7 +576,7 @@ def generate_publications():
         <div class="filter-bar">
           <div class="filter-chips">
             <button class="filter-chip active" data-filter="all">All ({total_count})</button>
-            <button class="filter-chip" data-filter="book">Books & Series</button>
+            <button class="filter-chip" data-filter="book">Books & Booklets</button>
             <button class="filter-chip" data-filter="software">Open Source & Tools</button>
             <button class="filter-chip" data-filter="article">Articles & Preprints</button>
             <button class="filter-chip" data-filter="media">Podcasts & Media</button>
