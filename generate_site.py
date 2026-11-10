@@ -8,20 +8,12 @@ with open('/tmp/parsed_pages.json', 'r', encoding='utf-8') as f:
 
 def get_nav(active_page, relative_prefix=''):
     p = relative_prefix
-    links = [
-        ('home', f'{p}index.html', 'Home'),
-        ('cv', f'{p}cv.html', 'Curriculum Vitae'),
-        ('publications', f'{p}publications.html', 'Publications'),
-        ('teaching', f'{p}teaching.html', 'Teaching'),
-        ('info_theory', f'{p}information-theory.html', 'Information Theory'),
-        ('multimedia', f'{p}multimedia-signal-processing.html', 'Multimedia Processing')
-    ]
     
-    links_html = []
-    for key, href, label in links:
-        is_active = ' active' if active_page == key else ''
-        links_html.append(f'<li><a href="{href}" class="nav-link{is_active}">{label}</a></li>')
-        
+    is_home = ' active' if active_page == 'home' else ''
+    is_cv = ' active' if active_page == 'cv' else ''
+    is_pubs = ' active' if active_page == 'publications' else ''
+    is_teaching = ' active' if active_page in ['teaching', 'info_theory', 'multimedia'] else ''
+    
     return f"""
     <header class="site-header">
       <div class="container">
@@ -32,7 +24,22 @@ def get_nav(active_page, relative_prefix=''):
           </a>
           
           <ul class="nav-links" id="nav-links">
-            {"".join(links_html)}
+            <li><a href="{p}index.html" class="nav-link{is_home}">Home</a></li>
+            <li><a href="{p}cv.html" class="nav-link{is_cv}">CV</a></li>
+            <li><a href="{p}publications.html" class="nav-link{is_pubs}">Publications</a></li>
+            
+            <li class="nav-item-dropdown">
+              <a href="{p}teaching.html" class="nav-link{is_teaching}">
+                Teaching
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{p}teaching.html" class="dropdown-item">Teaching Overview &amp; History</a></li>
+                <li><a href="{p}information-theory.html" class="dropdown-item">Information Theory</a></li>
+                <li><a href="{p}multimedia-signal-processing.html" class="dropdown-item">Multimedia Signal Processing</a></li>
+              </ul>
+            </li>
+
             <li><a href="https://github.com/leolca" target="_blank" rel="noopener" class="nav-link" title="GitHub Profile">GitHub ↗</a></li>
             <li><a href="http://lattes.cnpq.br/6946118605547297" target="_blank" rel="noopener" class="nav-link" title="CNPq Lattes CV" style="color:var(--primary);font-weight:600;">Lattes ↗</a></li>
           </ul>
